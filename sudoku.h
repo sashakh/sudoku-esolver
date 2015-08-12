@@ -35,4 +35,6 @@ void sudoku_multi_solver_each(struct sudoku s[], unsigned size, unsigned print);
 unsigned sudoku_collection_size();
 s_type *sudoku_collection_get(unsigned num);
 
+void solver_init(void);
+
 #endif /* __SUDOKU_H__ */

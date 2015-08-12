@@ -104,6 +104,8 @@ int main(int argc, char * const argv[])
 		}
 	}
 
+	solver_init();
+
 	return do_multi(verbose, num_of_sudokus, sudoku_num,
 			argc - optind, argv + optind);
 }

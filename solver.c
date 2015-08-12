@@ -16,12 +16,6 @@
 
 #include "sudoku.h"
 
-static unsigned bitmaps_test_bit(struct sudoku *s, unsigned i, unsigned bit)
-{
-	return (s->rows[i / D] | s->cols[i % D]
-		| s->sqrs[(i / (D * N)) * N + (i % D) / N]) & (1 << bit);
-}
-
 static void bitmaps_clear_bit(struct sudoku *s, unsigned i, unsigned bit)
 {
 	s->rows[i / D] &= ~(1 << bit);
@@ -36,10 +30,26 @@ static void bitmaps_set_bit(struct sudoku *s, unsigned i, unsigned bit)
 	s->sqrs[(i / (D * N)) * N + (i % D) / N] |= 1 << bit;
 }
 
+static s_type bitmap_free_bits_tab[1 << (D + 1)][D + 1];
+
+static s_type *get_free_nums(struct sudoku *s, unsigned i)
+{
+	return bitmap_free_bits_tab[(s->rows[i / D] | s->cols[i % D]
+		| s->sqrs[(i / (D * N)) * N + (i % D) / N])];
+}
+
+void solver_init()
+{
+	unsigned i, n, bits;
+
+	for (bits = 0; bits < 1 << (D + 1); bits++)
+		for (i = 1, n = 0; i < D + 1; i++)
+			if (!(bits & (1 << i)))
+				bitmap_free_bits_tab[bits][n++] = i;
+}
+
 static unsigned solve_one(struct sudoku *s, unsigned start)
 {
-	unsigned i;
-
 	for (; start < D * D; start++)
 		if (!s->s[start])
 			break;
@@ -47,15 +57,14 @@ static unsigned solve_one(struct sudoku *s, unsigned start)
 	if (start == D * D)		/* finally solved */
 		return 1;
 
-	for (i = 1; i < D + 1; i++) {
-		if (bitmaps_test_bit(s, start, i))
-			continue;
-		bitmaps_set_bit(s, start, i);
+	s_type *n = get_free_nums(s, start);
+	while (*n) {
+		bitmaps_set_bit(s, start, *n);
 		if (solve_one(s, start + 1)) {
-			s->s[start] = i;	/* solved */
+			s->s[start] = *n;	/* solved */
 			return 1;
 		}
-		bitmaps_clear_bit(s, start, i);
+		bitmaps_clear_bit(s, start, *n++);
 	}
 
 	return 0;
