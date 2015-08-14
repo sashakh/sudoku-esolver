@@ -1,4 +1,4 @@
-CFLAGS := -Wall -g
+CFLAGS := -Wall -g -O2 # -pg
 
 progs := sudoku-esolver
 tools := gen-hz
@@ -6,8 +6,6 @@ tools := gen-hz
 all: $(tools) $(progs)
 
 sudoku-esolver: main.o solver.o collection.o reader.o
-
-solver.o: CFLAGS += -O5
 
 $(progs): %:
 	$(CC) $(CFLAGS) -o $@ $^
