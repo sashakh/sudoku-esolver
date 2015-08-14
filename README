@@ -1,2 +1,77 @@
-# sudoku-esolver
-Sudoku E-solver - simple sudoku solver
+Please see the LICENSE file for details on copying and usage.
+
+Sudoku E-solver -('E' stands for 'Eleonora', not for 'electronic').
+===============
+
+Implements simple brute force sudoku puzzle solver with some optimizations.
+Useful for testing, experimentin, playing, etc.. Enjoy!
+
+Build:
+-----
+
+ $ make
+
+Usage:
+-----
+
+ $ ./sudoku-esolver --help
+
+  usage: ./sudoku-esolver [-vh] [-s N] [-n N] [sudoku_file ...]
+    --help, -h       - this usage message.
+    --verbose, -v    - increase verbosity - show sudoku.
+    --sudoku, -s NUM - solve specified puzzle.
+    --number, -n NUM - solve NUM of puzzles  (default 16384).
+
+This has simple internal puzzle collection and is able to use external
+files with puzzles. File format is OpenSudoku compatible (see references
+below).
+
+Usage examples:
+--------------
+
+$ ./sudoku-esolver 
+done 16384 puzzles in 720124591 nanoseconds (average 43952)
+
+$ ./sudoku-esolver -s 1 -n 100
+done 100 puzzles in 014799533 nanoseconds (average 147995)
+
+$ ./sudoku-esolver -s 1 -n 100 -v 
+done 100 puzzles in 016997838 nanoseconds (average 169978)
+Sudoku 1:
+  0  1  6  2  3  0  0  0  0          8  1  6  2  3  7  4  5  9
+  2  0  0  0  0  4  0  0  8          2  5  3  1  9  4  7  6  8
+  0  7  0  0  0  0  0  2  0          9  7  4  8  5  6  3  2  1
+  0  3  0  0  6  0  9  0  0          4  3  5  7  6  8  9  1  2
+  0  0  1  0  0  0  6  0  0          7  8  1  9  4  2  6  3  5
+  0  0  9  0  1  0  0  4  0          6  2  9  5  1  3  8  4  7
+  0  4  0  0  0  0  0  7  0          1  4  8  3  2  9  5  7  6
+  5  0  0  4  0  0  0  0  3          5  6  7  4  8  1  2  9  3
+  0  0  0  0  7  5  1  8  0          3  9  2  6  7  5  1  8  4
+
+References:
+----------
+
+Sudoku puzzle sets examples:
+
+http://opensudoku-android.googlecode.com/files/gnome-sudoku_easy.opensudoku
+http://opensudoku-android.googlecode.com/files/gnome-sudoku_medium.opensudoku
+http://opensudoku-android.googlecode.com/files/gnome-sudoku_hard.opensudoku
+http://opensudoku-android.googlecode.com/files/gnome-sudoku_very_hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs4-easy.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs4-medium.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs4-hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs4-very_hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs5-easy.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs5-medium.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs5-hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs5-very_hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs6-easy.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs6-medium.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs6-hard.opensudoku
+http://opensudoku.p43.eu/gnome-sudoku/gs6-very_hard.opensudoku
+http://opensudoku.p43.eu/noponies.sdm
+http://www.sudocue.net/learningcurve.sdm
+http://www.sudocue.net/Superiors.sdm
+http://www.sudocue.net/almostdn.sdm
+http://www.sudocue.net/snow2005.sdm
+http://www.sudocue.net/top10000.sdm
